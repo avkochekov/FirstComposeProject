@@ -114,7 +114,7 @@ fun ContactDetails(modifier: Modifier = Modifier, contact: Contact) {
                 )
             } ?: let {
                 Icon(
-                    tint = Color.Gray,
+                    tint = Color.LightGray,
                     painter = painterResource(id = R.drawable.circle),
                     contentDescription = null,
                 )
