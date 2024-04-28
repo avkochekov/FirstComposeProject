@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                             address = "Ивановская область, дер. Крутово, д. 4",
                         ),
                     )
-                    ContactDetails (
+                    ContactDetails(
                         contact = items[1]
                     )
                 }
@@ -68,13 +68,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun InfoRow(type: Int, text: String){
-    Row (
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
+fun InfoRow(modifier: Modifier = Modifier, type: Int, text: String) {
+    Row(
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
-    ){
+    ) {
         Text(
             modifier = Modifier
                 .weight(0.5f)
@@ -100,23 +98,21 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ContactDetails(contact: Contact) {
-    Column (
+fun ContactDetails(modifier: Modifier = Modifier, contact: Contact) {
+    Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box (
-            modifier = Modifier
-                .wrapContentSize()
-                .padding(vertical = 16.dp),
+        Box(
+            modifier = modifier,
             contentAlignment = Alignment.Center
         ) {
 
-            contact.imageRes?.let {imageRes ->
+            contact.imageRes?.let { imageRes ->
                 Image(
                     painter = painterResource(id = imageRes),
                     contentDescription = null,
                 )
-            }?:let{
+            } ?: let {
                 Icon(
                     tint = Color.Gray,
                     painter = painterResource(id = R.drawable.circle),
@@ -129,13 +125,13 @@ fun ContactDetails(contact: Contact) {
         }
 
         Text(
-            text = contact.surname?.let { "${contact.name} $it" }?:contact.name,
+            text = contact.surname?.let { "${contact.name} $it" } ?: contact.name,
             style = TextStyle(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold
             )
         )
-        Row (
+        Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -154,13 +150,31 @@ fun ContactDetails(contact: Contact) {
                 )
             }
         }
-        Column (
+        Column(
             modifier = Modifier.padding(top = 40.dp)
         ) {
-            InfoRow(type = R.string.phone, text = contact.phone)
-            InfoRow(type = R.string.address, text = contact.address)
-            contact.email?.let {email ->
-                InfoRow(type = R.string.email, text = email)
+            InfoRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                type = R.string.phone,
+                text = contact.phone
+            )
+            InfoRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                type = R.string.address,
+                text = contact.address
+            )
+            contact.email?.let { email ->
+                InfoRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    type = R.string.email,
+                    text = email
+                )
             }
         }
     }
@@ -171,6 +185,9 @@ fun ContactDetails(contact: Contact) {
 fun ShowContactPreview_1() {
     FirstComposeProjectTheme {
         ContactDetails(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(vertical = 16.dp),
             contact = Contact(
                 name = "Евгений",
                 surname = "Андреевич",
@@ -190,6 +207,9 @@ fun ShowContactPreview_1() {
 fun ShowContactPreview_2() {
     FirstComposeProjectTheme {
         ContactDetails(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(vertical = 16.dp),
             contact = Contact(
                 name = "Василий",
                 familyName = "Кузякин",
